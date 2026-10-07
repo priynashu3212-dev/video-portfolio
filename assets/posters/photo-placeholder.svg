@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" width="400" height="500" role="img" aria-label="Photo placeholder">
+  <rect width="400" height="500" fill="#141418"/>
+  <g fill="none" stroke="#2a2a32" stroke-width="2" stroke-dasharray="7 7">
+    <rect x="14" y="14" width="372" height="472" rx="6"/>
+  </g>
+  <g fill="#232329">
+    <circle cx="200" cy="196" r="52"/>
+    <path d="M200 262c-62 0-112 40-112 90v112h224V352c0-50-50-90-112-90z"/>
+  </g>
+  <g fill="#4a4a54" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="15" letter-spacing="2.4" text-anchor="middle">
+    <text x="200" y="432">YOUR PHOTO</text>
+    <text x="200" y="456" font-size="12" fill="#3a3a44">assets/photos/portrait.jpg</text>
+  </g>
+</svg>
