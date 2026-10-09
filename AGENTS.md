@@ -279,6 +279,33 @@ profile URLs (replace the `#` in `CONFIG.socials` *and* the Person JSON-LD
   parity still passes; `seo-geom.mjs` GEOM OK.
 - `ld-check.mjs` (temp) parses and reports the JSON-LD blocks in both HTML files.
 
+## Portrait crop + priyanshu-rana circle fix (Oct 9, 2026)
+
+- Commit `c1755ae` (prior session, previously unlogged) physically cropped
+  `assets/photos/portrait.jpg` from the full-body 1200x1600 WhatsApp shot to an
+  **upper-body 720x900** crop (removed the legs), bumped `style.css` to `?v=7`
+  and the portrait references to `?v=2`, set `.about-photo--main img` to
+  `object-position: 50% 50%`, and added the `Priyanshu Kaithal` alternateName +
+  the "Is Priyanshu Rana also known as Priyanshu Siwan or Priyanshu Kaithal?"
+  FAQ (config.js, FAQPage JSON-LD, baked `#faqList`). Committed, pushed, and
+  deployed live; homepage + `/priyanshu-rana.html` verified.
+- **c1755ae changed `js/config.js` but did NOT bump its `?v=` stamp**, so
+  `index.html` now carries `js/config.js?v=5` (was `?v=4`). Bump the stamp
+  whenever config.js changes — `main.js` re-renders `#faqList` from
+  `CONFIG.faq`, so a cached config.js shows the old FAQ count.
+- **Fixed the `priyanshu-rana.html` avatar crop.** The portrait's face sits in
+  the top ~15-28% of the 720x900 frame. The 150x150 circle used `object-fit:
+  cover` with default centre framing, which cropped the top and pushed the face
+  off the top edge (reads as "body only"). Added `object-position: 50% 0` to
+  `.portrait` so the circle anchors to the face. (The homepage hero 3:4 frame
+  and the About 4:5 frame already show the full height, so only the 1:1 circle
+  needed it.)
+- **LinkedIn skipped** — the URL the owner sent (`linkedin.com/feed/`) is a
+  private feed link, not a public profile. `CONFIG.socials` LinkedIn and the
+  Person JSON-LD `sameAs` still need the real `linkedin.com/in/...` URL.
+- Verified: `seo-verify.mjs` 10/10 + full JS/no-JS parity (9 FAQs both sides),
+  `seo-geom.mjs` GEOM OK, both pages 200 at :5173.
+
 ## Next actions
 
 **Off-page — this is what actually wins name searches (on-page alone will
