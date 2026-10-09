@@ -1,36 +1,37 @@
 :root {
-  /* Warm editorial palette: light paper, near-black warm brown for type and
-     primary buttons, one terracotta accent. This is the "quiet luxury" end of
-     the scale rather than the neon it replaces — legible at every size, and
-     it lets the hero video stay subtle instead of shouting. */
-  --bg: #f7f5f0;
-  --bg-2: #efebe3;
-  --surface: #fffdf8;
-  --line: #e2ddd2;
-  --line-soft: #ebe6dc;
-  --text: #1c1613;
-  --muted: #6f6759;
+  /* Bright, airy palette: white and light blue backgrounds, one bright blue
+     accent and a lighter sky-blue secondary. Rounded corners and soft shadows
+     everywhere the theme still carries its old editorial dna, warmed down so
+     the hero video reads as sunlight off a window instead of neon. */
+  --bg: #f4f7ff;
+  --bg-2: #e9effb;
+  --surface: #ffffff;
+  --line: #d9e1f3;
+  --line-soft: #e7edf9;
+  --text: #0f1e3d;
+  --muted: #5c6b8f;
 
-  --accent: #1c1613;
-  --accent-2: #a4572f;
-  --accent-rgb: 28 22 19;
-  --accent-2-rgb: 164 87 47;
+  --accent: #2563eb;
+  --accent-2: #0ea5e9;
+  --accent-rgb: 37 99 235;
+  --accent-2-rgb: 14 165 233;
 
-  --ok: #3f6f4a;
-  --err: #9c3b2e;
+  --ok: #15803d;
+  --err: #d23b34;
 
   /* Hero tones. js/aurora.js reads these to paint the live shader, so the
      fallback animation and the encoded hero-loop video are the same palette. */
-  --mid: #ece0cc;
-  --deep: #b39471;
-  --warm: #e8c489;
-  --dark: #7d5636;
+  --mid: #cddbff;
+  --deep: #7aa2ff;
+  --warm: #a5c4ff;
+  --dark: #3b5bd6;
   --bar: clamp(22px, 4.6vh, 44px);
   --pad: clamp(20px, 5vw, 64px);
   --max: 1360px;
+  --radius: 18px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --sans: Poppins, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --serif: Poppins, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
@@ -130,7 +131,7 @@ h2 {
   border-bottom: 1px solid transparent;
 }
 .nav.scrolled {
-  background: rgba(247, 245, 240, 0.86);
+  background: rgba(244, 247, 255, 0.86);
   backdrop-filter: blur(16px);
   border-bottom-color: var(--line);
   padding-block: 12px;
@@ -148,7 +149,7 @@ h2 {
   text-transform: uppercase; color: var(--muted); transition: color 0.25s;
   display: inline-flex; align-items: baseline;
 }
-.nav-links a em { font-style: normal; color: #a9a294; margin-right: 7px; transition: color 0.25s; }
+.nav-links a em { font-style: normal; color: #8fa0c4; margin-right: 7px; transition: color 0.25s; }
 .nav-links a:hover { color: var(--text); }
 .nav-links a:hover em { color: var(--accent); }
 .nav-right { display: flex; align-items: center; gap: 16px; }
@@ -165,7 +166,7 @@ h2 {
   .nav-toggle { display: block; }
   .nav-links {
     position: fixed; inset: 0; flex-direction: column; align-items: center; justify-content: center;
-    gap: 30px; background: rgba(247, 245, 240, 0.98); font-size: 1.4rem;
+    gap: 30px; background: rgba(244, 247, 255, 0.98); font-size: 1.4rem;
     transform: translateY(-100%); transition: transform 0.45s var(--ease);
   }
   .nav-links a { font-size: 1rem; }
@@ -229,14 +230,14 @@ h2 {
   position: absolute; inset: 0;
   background:
     linear-gradient(to right,
-      rgba(247, 245, 240, 0.80) 0%,
-      rgba(247, 245, 240, 0.62) 20%,
-      rgba(247, 245, 240, 0.18) 34%,
-      rgba(247, 245, 240, 0) 44%),
+      rgba(244, 247, 255, 0.80) 0%,
+      rgba(244, 247, 255, 0.62) 20%,
+      rgba(244, 247, 255, 0.18) 34%,
+      rgba(244, 247, 255, 0) 44%),
     linear-gradient(to top,
-      rgba(247, 245, 240, 0.55) 0%,
-      rgba(247, 245, 240, 0.14) 9%,
-      rgba(247, 245, 240, 0) 18%);
+      rgba(244, 247, 255, 0.55) 0%,
+      rgba(244, 247, 255, 0.14) 9%,
+      rgba(244, 247, 255, 0) 18%);
 }
 
 .hero-grid { position: relative; z-index: 5; max-width: var(--max); width: 100%; margin: 0 auto; }
@@ -353,73 +354,114 @@ h2 {
 @keyframes slide { to { transform: translateX(-50%); } }
 
 
-/* ---------- filters ---------- */
-.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
-.chip {
-  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
-  border: 1px solid var(--line); color: var(--muted); border-radius: 100px; padding: 9px 17px;
-  transition: color 0.25s, border-color 0.25s, background 0.25s;
-}
-.chip:hover { color: var(--text); border-color: var(--accent-2); }
-.chip.is-active { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+/* ---------- work: scroll deck ---------- */
+/* Three projects stacked in 3D: each card is a tilted slide that straightens
+   as it reaches the middle of the screen and tilts away as the next one
+   arrives. Only transform and opacity are animated while scrolling. */
 
-/* ---------- work: card grid ---------- */
 .work { padding-bottom: clamp(70px, 9vh, 110px); }
 .work-wrap { position: relative; max-width: var(--max); margin: 0 auto; }
 
+/* Static fallback used when JS is off, reduced-motion is requested, or there
+   is only one project: a simple staggered grid. */
 .card-grid {
   list-style: none; display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: clamp(20px, 2.4vw, 34px);
-  /* The tilt and stagger need room to swing or the corners clip the section box. */
   padding: 34px 6px 46px;
 }
 
-/* Cards sit at a slight opposing tilt, the way the reference stacks its
-   panels, and straighten as you reach for one.
+/* ---------- the 3D slide deck ---------- */
+.stack { position: relative; height: calc(100vh * (var(--n, 0) + 1.4)); }
+.stack-viewport {
+  position: sticky; top: 0; height: 100vh;
+  overflow: hidden;
+}
+.stack-stage {
+  position: relative; z-index: 1;
+  width: min(860px, 94vw); height: 100%;
+  margin: 0 auto; display: grid; place-items: center;
+  perspective: 1200px; perspective-origin: 50% 45%;
+  transform-style: preserve-3d;
+}
+.stack-bgs { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.stack-bg {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: min(720px, 78vw); height: 62vh;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, #dbe6ff, #c3d5fb);
+  filter: blur(16px); opacity: 0.55;
+  will-change: transform;
+}
+.stack-bg--2 { width: 600px; height: 50vh; background: linear-gradient(135deg, #e9f1ff, #d7e5ff); opacity: 0.4; }
+.stack-bg--3 { width: 480px; height: 40vh; background: linear-gradient(135deg, #f2f6ff, #e4edff); opacity: 0.3; }
+@media (max-width: 760px) {
+  .stack-bg--2, .stack-bg--3 { display: none; }
+  .stack-bg { filter: blur(10px); opacity: 0.4; }
+}
 
-   This uses the standalone `rotate` property rather than `transform` on
-   purpose: `.reveal` already owns `transform` for the scroll-in animation,
-   and independent translate/rotate/scale properties compose with it instead
-   of overwriting it. Using transform here would make the two fight over
-   specificity and the hover lift would silently stop working. */
+/* Shared card look: rounded, soft-shadowed white panel. */
 .card {
   --tilt: 0deg;
-  /* Vertical stagger. A tilt on its own is easy to miss because the panel is
-     still axis-aligned with its neighbour; offsetting each one by a different
-     amount is what makes the arrangement read as deliberately scattered. */
   --drop: 0px;
   position: relative; display: flex; flex-direction: column;
   border: 1px solid var(--line); background: var(--surface);
+  border-radius: var(--radius);
   overflow: hidden; cursor: pointer; text-align: left;
+  box-shadow: 0 1px 3px rgba(15, 30, 61, 0.05), 0 18px 42px -26px rgba(15, 30, 61, 0.35);
+}
+/* Static grid keeps the gentle editorial tilt so cards are never monotonous. */
+.work:not(.is-deck) .card:nth-child(4n + 1) { --tilt: -3.4deg; --drop: 0px; }
+.work:not(.is-deck) .card:nth-child(4n + 2) { --tilt: 3.1deg;  --drop: 30px; }
+.work:not(.is-deck) .card:nth-child(4n + 3) { --tilt: -2.4deg; --drop: 14px; }
+.work:not(.is-deck) .card:nth-child(4n + 4) { --tilt: 3.4deg;  --drop: 4px; }
+.work:not(.is-deck) .card {
   rotate: var(--tilt);
   translate: 0 var(--drop);
-  box-shadow: 0 1px 2px rgba(28, 22, 19, 0.04), 0 10px 26px -20px rgba(28, 22, 19, 0.3);
   transition: rotate 0.5s var(--ease), translate 0.45s var(--ease),
-    box-shadow 0.4s var(--ease), border-color 0.35s, background 0.35s;
+    box-shadow 0.4s var(--ease), border-color 0.35s;
 }
-/* Alternating tilt plus an uneven drop, so no two cards share an angle or a
-   baseline. 3.4deg moves a ~500px card's corner about 15px, which is enough
-   to see at a glance where 2.2deg (about 10px) was not. */
-.card:nth-child(4n + 1) { --tilt: -3.4deg; --drop: 0px; }
-.card:nth-child(4n + 2) { --tilt: 3.1deg;  --drop: 30px; }
-.card:nth-child(4n + 3) { --tilt: -2.4deg; --drop: 14px; }
-.card:nth-child(4n + 4) { --tilt: 3.4deg;  --drop: 4px; }
-.card:hover {
-  --tilt: 0deg;
-  --drop: -8px;
-  border-color: #cfc8b8;
-  box-shadow: 0 2px 5px rgba(28, 22, 19, 0.05), 0 26px 52px -24px rgba(28, 22, 19, 0.38);
+.work:not(.is-deck) .card:hover {
+  --tilt: 0deg; --drop: -8px;
+  border-color: rgba(var(--accent-rgb) / 0.5);
+  box-shadow: 0 26px 54px -24px rgba(23, 78, 205, 0.4);
 }
 .card:focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; }
 .card.is-hidden { display: none; }
 
-/* Pointer-tracked warm wash, positioned by --mx/--my from js/main.js. Kept
-   below the media so it tints the card body without veiling the poster. */
+/* In the deck, cards are absolutely centred and the scroll handler owns the
+   3D transform. translate: -50% -50% centres them and the hover nudge
+   composes with whatever transform is currently applied, so nothing fights. */
+.work.is-deck .work-wrap { max-width: none; }
+.work.is-deck .card-grid {
+  display: block; padding: 0; height: 100%;
+  /* The cards are its direct children, so the shared vanishing point (and
+     the 3D space that lets them stack at depth) has to live here — the
+     perspective on .stack-stage stops one level above. */
+  position: relative; perspective: 1200px; transform-style: preserve-3d;
+}
+.work.is-deck .card {
+  position: absolute; top: 50%; left: 50%;
+  translate: -50% -50%;
+  width: min(760px, 88vw);
+  margin: 0; rotate: none;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: translate 0.4s var(--ease), scale 0.4s var(--ease),
+    box-shadow 0.4s var(--ease), border-color 0.35s;
+}
+.work.is-deck .card:hover {
+  translate: -50% calc(-50% - 10px);
+  scale: 1.02;
+  border-color: rgba(var(--accent-rgb) / 0.55);
+  box-shadow: 0 30px 60px -28px rgba(23, 78, 205, 0.45);
+}
+
+/* Pointer-tracked blue wash, positioned by --mx/--my from js/main.js. */
 .card::before {
   content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(var(--accent-2-rgb) / 0.07), transparent 70%);
+    rgba(var(--accent-2-rgb) / 0.09), transparent 70%);
   opacity: 0; transition: opacity 0.4s var(--ease);
 }
 .card:hover::before { opacity: 1; }
@@ -431,7 +473,7 @@ h2 {
 }
 .card-media img {
   width: 100%; height: 100%; object-fit: cover;
-  filter: saturate(0.88) contrast(1.02);
+  filter: saturate(0.95) contrast(1.02);
   transition: transform 0.7s var(--ease), filter 0.5s var(--ease);
 }
 .card:hover .card-media img {
@@ -441,42 +483,29 @@ h2 {
 /* Keeps the two overlay labels legible over any poster. */
 .card-media::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(28, 22, 19, 0.62), transparent 52%);
+  background: linear-gradient(to top, rgba(15, 30, 61, 0.55), transparent 55%);
 }
 
 .card-no {
-  position: absolute; top: 12px; left: 14px; z-index: 2;
-  color: #fff; text-shadow: 0 1px 8px rgba(28, 22, 19, 0.55);
+  position: absolute; top: 14px; left: 16px; z-index: 2;
+  color: #fff; text-shadow: 0 1px 8px rgba(15, 30, 61, 0.55);
 }
 .card-cat {
-  position: absolute; bottom: 12px; left: 14px; z-index: 2; color: #fff;
+  position: absolute; bottom: 14px; left: 16px; z-index: 2; color: #fff;
   background: rgba(255, 255, 255, 0.16); border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 100px; padding: 4px 11px;
   backdrop-filter: blur(8px);
 }
 
 .card-body {
-  display: flex; flex-direction: column; gap: 8px;
-  padding: 20px 20px 22px; flex: 1;
+  display: flex; flex-direction: column;
+  padding: 22px 24px 26px; flex: 1;
 }
-/* Serif card titles, another straight lift from the reference. */
 .card-title {
-  font-family: var(--serif);
-  font-size: 1.45rem; font-weight: 400; letter-spacing: -0.015em; line-height: 1.15;
+  font-family: var(--sans);
+  font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2;
 }
 .card-meta { color: var(--muted); }
-
-.card-go {
-  position: absolute; right: 14px; bottom: 18px;
-  width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 50%;
-  display: grid; place-items: center; font-size: 0.55rem; color: var(--muted);
-  padding-left: 2px;
-  transition: background 0.3s, color 0.3s, rotate 0.45s var(--ease), border-color 0.3s;
-}
-.card:hover .card-go {
-  background: var(--accent); border-color: var(--accent);
-  color: var(--bg); rotate: 90deg;
-}
 
 /* Whole-card click target. A real <button> so keyboard, screen readers and
    focus rings all work without hand-rolled key handling. */
@@ -486,29 +515,25 @@ h2 {
 }
 .card-hit:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
 
-/* A project with no link and no video: shown, but not pretending. No
-   pointer, no lift, no arrow. It still keeps its place in the alternating
-   tilt, because a single card sitting flat while its neighbour leans reads
-   as a rendering bug rather than as restraint. */
-.card--static { cursor: default; }
-.card--static:hover { --drop: 0px; --tilt: 0deg; box-shadow: 0 1px 2px rgba(28, 22, 19, 0.04), 0 10px 26px -20px rgba(28, 22, 19, 0.3); }
-.card--static .card-media img { filter: saturate(0.5) contrast(1.02); }
-.card--static:hover .card-media img { transform: none; }
-
 .card-summary {
-  color: var(--muted); font-size: 0.92rem; line-height: 1.55; margin-top: 2px;
+  color: var(--muted); font-size: 0.94rem; line-height: 1.6; margin-top: 6px;
 }
-.card-result {
-  display: block; margin-top: 14px; padding: 12px 14px;
-  border: 1px solid var(--line); border-radius: 10px;
-  background: rgba(var(--accent-2-rgb) / 0.06);
-  color: var(--text); font-size: 0.87rem; line-height: 1.5;
+.card-stack { color: var(--muted); opacity: 0.8; margin-top: 16px; font-size: 0.62rem; }
+.card .card-meta { margin-top: 10px; }
+
+/* "View case study" pill — the explicit call to action on every card. */
+.card-cta {
+  align-self: flex-start; margin-top: 18px;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.82rem; font-weight: 600; letter-spacing: 0.01em; color: #fff;
+  background: var(--accent); border-radius: 100px; padding: 11px 20px;
+  box-shadow: 0 10px 26px -14px rgba(var(--accent-rgb) / 0.85);
+  transition: background 0.3s, box-shadow 0.35s var(--ease);
 }
-.card-result-tag {
-  display: block; color: var(--accent-2); margin-bottom: 5px; font-size: 0.6rem;
+.card:hover .card-cta {
+  background: var(--accent-2);
+  box-shadow: 0 12px 28px -14px rgba(var(--accent-2-rgb) / 0.85);
 }
-.card-stack { color: var(--muted); opacity: 0.75; margin-top: 12px; font-size: 0.62rem; }
-.card .card-meta { margin-top: 12px; }
 
 /* ---------- skip link ---------- */
 .skip-link {
@@ -875,7 +900,7 @@ h2 {
 .lightbox {
   position: fixed; inset: 0; z-index: 100; display: none;
   grid-template-rows: auto 1fr auto; align-content: center;
-  background: rgba(4, 4, 6, 0.96); backdrop-filter: blur(10px);
+  background: rgba(8, 13, 32, 0.96); backdrop-filter: blur(10px);
   padding: clamp(16px, 3vw, 34px);
 }
 .lightbox.open { display: grid; animation: fade 0.3s var(--ease); }
@@ -885,21 +910,21 @@ h2 {
 .lightbox {
   position: fixed; inset: 0; z-index: 100; display: none;
   grid-template-rows: auto 1fr auto; align-content: center;
-  background: rgba(20, 15, 12, 0.96); backdrop-filter: blur(10px);
+  background: rgba(8, 14, 34, 0.96); backdrop-filter: blur(10px);
   padding: clamp(16px, 3vw, 34px);
 }
-.lightbox-top { display: flex; justify-content: space-between; align-items: center; color: #9a9187; padding-bottom: 12px; }
+.lightbox-top { display: flex; justify-content: space-between; align-items: center; color: #9db0d4; padding-bottom: 12px; }
 .lightbox-close {
   font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
-  color: #c9c1b6; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 100px; padding: 8px 16px;
+  color: #d4e0f5; border: 1px solid rgba(255, 255, 255, 0.22); border-radius: 100px; padding: 8px 16px;
   transition: color 0.25s, border-color 0.25s;
 }
 .lightbox-close:hover { color: #fff; border-color: #fff; }
 .lightbox-body { display: grid; place-items: center; min-height: 0; }
 .lightbox-body video { width: min(1200px, 100%); max-height: 74vh; background: #000; border: 1px solid var(--line); }
 .lightbox-foot { text-align: center; padding-top: 14px; }
-.lightbox-meta { font-size: 0.92rem; color: #e8e2d8; }
-.lightbox .hint { color: #857c72; margin-top: 8px; }
+.lightbox-meta { font-size: 0.92rem; color: #e4ebf8; }
+.lightbox .hint { color: #97a9cd; margin-top: 8px; }
 @media (max-width: 640px) { .lightbox .hint { display: none; } }
 
 .sub code {
@@ -911,9 +936,132 @@ h2 {
 /* ---------- lightbox fallback when a project has no video yet ---------- */
 #lightboxStill {
   max-height: 74vh; width: auto; max-width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.16); background: #241d18;
+  border: 1px solid rgba(255, 255, 255, 0.16); background: #0c1226;
 }
 .is-hidden { display: none !important; }
+
+/* ---------- case study overlay ---------- */
+.casestudy {
+  position: fixed; inset: 0; z-index: 120;
+  display: grid; place-items: center;
+  padding: clamp(12px, 2.4vw, 28px);
+  background: rgba(15, 30, 61, 0.42);
+  backdrop-filter: blur(8px);
+}
+.casestudy[hidden] { display: none; }
+.casestudy.open { animation: csFade 0.35s var(--ease); }
+.casestudy.open .casestudy-panel { animation: csIn 0.55s var(--ease); }
+@keyframes csFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes csIn {
+  from { opacity: 0; transform: translateY(36px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+.casestudy-panel {
+  position: relative; width: min(1080px, 100%);
+  height: min(90vh, 940px);
+  display: flex; flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 4px);
+  overflow: hidden;
+  box-shadow: 0 40px 90px -30px rgba(15, 30, 61, 0.55);
+}
+.casestudy-top {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px clamp(18px, 3vw, 30px);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.casestudy-kicker { color: var(--muted); }
+.casestudy-close {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text); border: 1px solid var(--line); border-radius: 100px; padding: 8px 16px;
+  background: var(--surface);
+  transition: border-color 0.25s, color 0.25s;
+}
+.casestudy-close:hover { border-color: var(--accent); color: var(--accent); }
+.casestudy-body {
+  flex: 1; overflow-y: auto; overscroll-behavior: contain;
+  padding: clamp(24px, 4vw, 48px) clamp(18px, 4vw, 56px) 60px;
+}
+
+.cs-hero { margin-bottom: 40px; }
+.cs-kicker { color: var(--accent-2); margin-bottom: 12px; }
+.cs-title { font-size: clamp(1.6rem, 3.4vw, 2.6rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; }
+.cs-sub { color: var(--muted); margin-top: 14px; max-width: 64ch; }
+.cs-facts { display: flex; flex-wrap: wrap; gap: 8px 22px; list-style: none; margin-top: 20px; }
+.cs-facts li { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.cs-facts li b { color: var(--text); font-weight: 500; }
+.cs-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-top: 26px; }
+.cs-metric { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); padding: 18px 20px; }
+.cs-metric b { display: block; font-size: 1.7rem; font-weight: 800; letter-spacing: -0.04em; color: var(--accent); }
+.cs-metric span { color: var(--muted); font-size: 0.82rem; }
+
+.cs-sec { margin-top: 54px; }
+.cs-label { display: flex; align-items: baseline; gap: 12px; color: var(--muted); margin-bottom: 16px; }
+.cs-label b { color: var(--accent); }
+.cs-sec h3 { font-size: clamp(1.3rem, 2.6vw, 1.8rem); font-weight: 800; letter-spacing: -0.025em; }
+.cs-sec > p { color: var(--muted); margin-top: 10px; max-width: 68ch; }
+
+.cs-challenges, .cs-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; margin-top: 18px; list-style: none; }
+.cs-challenges > li, .cs-features > li { border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg); padding: 20px 22px; }
+.cs-challenge-n, .cs-feature-n { color: var(--accent-2); display: block; margin-bottom: 8px; }
+.cs-challenges h4, .cs-features h4 { font-size: 1.02rem; font-weight: 700; letter-spacing: -0.015em; margin-bottom: 6px; }
+.cs-challenges p, .cs-features p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+
+.cs-process { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 18px; }
+.cs-step { border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; background: var(--bg); }
+.cs-step b { color: var(--accent-2); font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; }
+.cs-step h4 { margin-top: 8px; font-size: 1.02rem; font-weight: 700; letter-spacing: -0.015em; }
+.cs-step p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; margin-top: 8px; }
+@media (max-width: 860px) { .cs-process { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .cs-process { grid-template-columns: 1fr; } }
+
+.cs-personas { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+.cs-persona { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; background: var(--bg); }
+.cs-ava {
+  display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff;
+  font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em;
+}
+.cs-persona h4 { margin-top: 14px; font-size: 1.06rem; font-weight: 700; }
+.cs-persona .cs-role { color: var(--muted); font-size: 0.86rem; }
+.cs-quote { color: var(--text); margin-top: 12px; font-size: 0.96rem; line-height: 1.55; }
+.cs-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 16px; }
+.cs-lists h5 { font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.cs-lists ul { list-style: none; display: grid; gap: 6px; }
+.cs-lists li { color: var(--muted); font-size: 0.9rem; line-height: 1.45; }
+.cs-lists li::before { content: "→ "; color: var(--accent-2); }
+@media (max-width: 700px) { .cs-personas, .cs-lists { grid-template-columns: 1fr; } }
+
+.cs-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+.cs-quad { border-radius: var(--radius); padding: 20px 22px; border: 1px solid var(--line); }
+.cs-quad h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; display: flex; align-items: baseline; gap: 8px; }
+.cs-quad h4 span { font-size: 0.7rem; }
+.cs-quad ul { list-style: none; display: grid; gap: 6px; }
+.cs-quad li { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+.cs-quad--1 { background: #eef4ff; border-color: #d5e2ff; }
+.cs-quad--2 { background: #eefaff; border-color: #d2eeff; }
+.cs-quad--3 { background: #f2f6ff; border-color: #dfe7fb; }
+.cs-quad--4 { background: #f6f8fc; border-color: #e5e9f2; }
+@media (max-width: 640px) { .cs-matrix { grid-template-columns: 1fr; } }
+
+.cs-art { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+.cs-art figure { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg); }
+.cs-art svg, .cs-art img { width: 100%; height: auto; display: block; }
+.cs-art figcaption { padding: 10px 12px; color: var(--muted); font-size: 0.8rem; line-height: 1.5; }
+@media (max-width: 700px) { .cs-art { grid-template-columns: 1fr; } }
+
+.cs-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.cs-foot {
+  margin-top: 46px; padding-top: 22px; border-top: 1px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;
+  color: var(--muted);
+}
+@media (prefers-reduced-motion: reduce) {
+  .casestudy.open { animation: none; }
+  .casestudy.open .casestudy-panel { animation: none; }
+}
 
 /* ---------- reveal ---------- */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }

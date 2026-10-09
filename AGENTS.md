@@ -384,6 +384,78 @@ not get #1):**
 - **SEO/bake assertions + JS/no-JS parity: `node %TEMP%\opencode\seo-verify.mjs [url]`**
 - **Layout/images sanity: `node %TEMP%\opencode\seo-geom.mjs [url]`**
 - **Section screenshots (need human eyes): `node %TEMP%\opencode\seo-shots.mjs`**
+- **Deck + case-study interaction: `node %TEMP%\opencode\test-deck.mjs`**
 - Re-encoding the hero: edit `loopframe.html`, `node render-loop.mjs`, then the
   ffmpeg calls above. Grade single frames first with `node probe-frames.mjs 0.0 0.5`
   (a full render is ~4 minutes).
+
+## Blue theme + 3D scroll deck + Carex case studies (Oct 9, 2026)
+
+The owner asked for the work projects to follow the "Carex UX Case Study
+Template v1.1" structure (Overview / Challenges / Features / Process
+Discover·Define·Ideate·Design / User Persona / Eisenhower Matrix / Sketches /
+Final Screens), opened from an interactive project card with a smooth
+transition, plus a scroll-driven 3D deck for the projects (tilted cards that
+straighten at centre-screen, parallax layers, hover lift, opening a full case
+study). The owner explicitly chose the brief's look — **white/light-blue
+background, bright blue accent, rounded cards, soft shadows, Poppins** — over
+the old warm editorial theme.
+
+- **Theme is now blue** (supersedes the warm palette in the Oct 1 notes):
+  `--bg #f4f7ff`, `--bg-2 #e9effb`, `--surface #fff`, `--line #d9e1f3`,
+  `--text #0f1e3d`, `--muted #5c6b8f`, `--accent #2563eb`, `--accent-2 #0ea5e9`,
+  hero shader `--mid #cddbff / --deep #7aa2ff / --warm #a5c4ff / --dark #3b5bd6`,
+  `--radius 18px`, fonts Poppins + JetBrains Mono, blue SVG favicon,
+  theme-color `#f4f7ff`.
+- **The encoded hero-loop video is still the old WARM cream-taupe grade**.
+  The live WebGL shader now reads the blue tokens (aurora.js reads CSS vars at
+  runtime), so the video and the fallback no longer match. Known follow-up:
+  re-encode hero-loop.webm/mp4 in the blue palette
+  (`edit loopframe.html` → `node render-loop.mjs` → ffmpeg). Do NOT trust
+  localhost seeking (server.js ignores Range) — judge from the live site.
+- **Work section = 3D scroll deck** when JS runs and reduced-motion is off:
+  `main.js` builds `.stack > .stack-viewport > (.stack-bgs + .stack-stage)`
+  inside `#workWrap`, moves `#workList` into `.stack-stage`, adds `.is-deck` to
+  `<section class="work">`. One rAF-throttled scroll handler writes ONLY
+  transform + opacity per card plus parallax on the 3 `.stack-bg` blobs.
+  Physics: `p = -stack.top/travel`, `t = p*(n+0.4)/n`, per-card
+  `d = t - (i+0.5)/n`, eased with `tanh`; cards centre one after another;
+  on <760px amplitude ×0.45; reduced-motion/`<2` projects fall back to the
+  static staggered grid (no `.is-deck`). CSS expects the perspective on
+  `.work.is-deck .card-grid` (the stage's own perspective is one level above
+  the cards) and full-bleed via `.work.is-deck .work-wrap { max-width:none }`.
+- **All cards open case studies now — the video lightbox is gone from JS**
+  (markup + CSS left in place, inert `display:none`). Every card is
+  interactive: `.card-cta` "View case study →" (aria-hidden) + a real
+  `.card-hit` <button> labelled `"<title> — view case study"`.
+- **Case study data lives in `data/projects.js`** (`caseStudy` blocks — same
+  for all 3 projects). `main.js` `caseHtml()` renders the Carex structure:
+  hero (kicker, title, lead, role/timeline/tools facts, metrics band) then 8
+  numbered `.cs-sec` blocks 01 Overview, 02 Challenges, 03 Features,
+  04 Process, 05 User Persona, 06 Eisenhower Matrix, 07 Sketches, 08 Final
+  Screens, plus optional `View live site ↗` link (Fitplay has `href`) and a
+  close button in `.cs-foot`. Sketches/screens `code`s map to hand-drawn
+  inline SVGs in `CS_ART` (`flow, hero, mobile, board, screen-*`); screens may
+  also carry an `img`.
+- **Overlay**: `#caseStudy` (fixed, `hidden` initially) → `.casestudy-panel`
+  with `.casestudy-top` (`#csKicker` + `#csClose`) and scrollable
+  `#caseStudyBody`. Open = remove hidden + (double rAF) add `.open`; Close =
+  remove `.open`, body overflow restored, focus returned to trigger;
+  Esc closes, backdrop click closes, Tab is trapped inside while open.
+- **index.html**: baked the 3 cards with `.card-cta`/`.card-hit` and added the
+  `#caseStudy` overlay markup. Parity rule still enforced: baked card markup
+  textContent == JS-rendered (seo-verify asserts it).
+- **Stamps now**: `css/style.css?v=9`, `js/config.js?v=5`, `data/projects.js?v=3`,
+  `js/aurora.js?v=2`, `js/main.js?v=5`. Bump any stamp whose file changes.
+- **Verified**: `node --check` clean; `seo-verify.mjs` 10/10 + full JS/no-JS
+  parity (workCards 3 both sides); `seo-geom.mjs` GEOM OK (3 cards >=300px,
+  .work section 4311px tall, no zero-height/empty); `test-deck.mjs` — deck
+  scaffold present, 3 card-hit buttons, Ludo card centres at expected scroll
+  (op 1, zIndex 100), case study opens with all 8 sections + metrics + 6 art
+  figures + live-site link, Esc closes and restores body scroll. NOTE: that
+  deck-mid scroll target is `stackAbsTop + p*travel` (add, not subtract).
+- Temp check scripts updated: `seo-verify.mjs` asserts workCards === 3 and
+  `seo-geom.mjs` expects 3 cards (both in %TEMP%\opencode).
+
+**Still open:** hero video blue re-encode (above); the pending portrait photo
+swap for `assets/photos/portrait.jpg`; everything on the owner-account list.
