@@ -120,7 +120,12 @@ disk.
   "Right now" (after About), "Journey" (after Process), "FAQ" (before Contact)
   render from them in main.js. Section labels are renumbered at runtime after
   the optional testimonials/now/journey/faq sections settle, so no gaps.
-- Git repository initialized; work is staged but **not committed**
+- Git repository initialized; commits now on `master`.
+- **GitHub remote:** `origin` → https://github.com/priynashu3212-dev/video-portfolio
+  (public, branch `master`). Auth uses Git Credential Manager (browser OAuth);
+  the repo-local `credential.https://github.com.helper=manager` overrides a
+  stale fine-grained token in `.git-credentials` that lacked Contents write on
+  this repo. `git push` works.
 
 ## SEO pass (Oct 7, 2026)
 
