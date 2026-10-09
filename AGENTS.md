@@ -325,6 +325,24 @@ profile URLs (replace the `#` in `CONFIG.socials` *and* the Person JSON-LD
 - `portrait-about.jpg` is a **new filename** (no `?v=` stamp needed) so it is
   cache-proof; bump the stamp only if the file is re-edited in place.
 
+## About-section photo removed (Oct 9, 2026)
+
+- Owner asked to **remove the About photo entirely** (the crop was never
+  satisfying him). Deleted the whole `.about-photos` / `.photo-grid` /
+  `.about-photo` figure from `index.html`, deleted the now-unused
+  `assets/photos/portrait-about.jpg`, and dropped the dead
+  `.about-photo*` / `.photo-grid` rules from `style.css` (incl. the 420px
+  media-query rule).
+- `.about` is now a **single column** (`grid-template-columns: minmax(0,1fr)`)
+  and `.about-text` is capped at `70ch` so the paragraph doesn't run full
+  width. `style.css` stamp bumped to **?v=8**.
+- The hero portrait and the `priyanshu-rana.html` circle are untouched and
+  still use `portrait.jpg?v=2`. `main.js` still has the
+  `document.querySelectorAll(".about-photo img")` error fallback — it now
+  matches nothing, harmless.
+- If a photo is wanted here again, add a figure inside the `.about` grid and a
+  real portrait to `assets/photos/`.
+
 ## Next actions
 
 **Off-page — this is what actually wins name searches (on-page alone will
