@@ -251,6 +251,34 @@ profile URLs (replace the `#` in `CONFIG.socials` *and* the Person JSON-LD
 `sameAs`), the Ludo Play Store/demo URL, and a higher-resolution drone photo
 (the only source, `Downloads\drone.webp`, is still 480×270).
 
+## SEO pass 3 — entity schema + name profile page + first backlink (Oct 9, 2026)
+
+- **Person JSON-LD upgraded to a `ProfilePage`** on `index.html` (block 0): the
+  `Person` is now `mainEntity`, enriched with `@id` `#person`, an `image` array
+  (portrait + og-cover, absolute URLs), `nationality: India`, `knowsLanguage`
+  (Hindi/English), `email`, `telephone`, `hasOccupation` (Occupation +
+  skills), `mainEntityOfPage`, and expanded `alternateName`
+  (`Priyanshu Siwan`, `Priyanshurana`, `Priyanshu Rana Siwan`,
+  `Priyanshu Rana Kaithal`). `FAQPage` block unchanged. Both parse-checked.
+- **New page `priyanshu-rana.html`** (dedicated name-targeted about/profile
+  page): unique content ("Who is Priyanshu Rana?", quick facts, services,
+  selected work, contact), its own canonical, `ProfilePage` + `BreadcrumbList`
+  JSON-LD (Person `@id` matches the homepage), and links back to `/`. Standalone
+  `<style>` (no dependency on style.css/main.js) so nothing else can break it.
+  Linked from the homepage footer (`.footer-about` -> `priyanshu-rana.html`,
+  new CSS in style.css) and added to `sitemap.xml` (priority 0.8, lastmod
+  2026-10-09).
+- **First real backlink:** added a "Website by Priyanshu Rana" footer credit
+  link on the live **Fitplay Gym Kaithal** site
+  (`https://fitplay-gym.vercel.app/`) pointing at the portfolio. See that
+  repo's `AGENTS.md` S29. This is the "easiest real backlink" from the old
+  Next-actions list — done.
+- Commit `34996f9` pushed to `master`; deployed `vercel --prod` and verified
+  live: `/priyanshu-rana.html` 200, `ProfilePage` present, canonical correct,
+  homepage footer link present. Local `seo-verify.mjs` 10/10 + full JS/no-JS
+  parity still passes; `seo-geom.mjs` GEOM OK.
+- `ld-check.mjs` (temp) parses and reports the JSON-LD blocks in both HTML files.
+
 ## Next actions
 
 **Off-page — this is what actually wins name searches (on-page alone will
