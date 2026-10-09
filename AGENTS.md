@@ -306,6 +306,25 @@ profile URLs (replace the `#` in `CONFIG.socials` *and* the Person JSON-LD
 - Verified: `seo-verify.mjs` 10/10 + full JS/no-JS parity (9 FAQs both sides),
   `seo-geom.mjs` GEOM OK, both pages 200 at :5173.
 
+## About-section photo crop (Oct 9, 2026)
+
+- The homepage About photo (`.about-photo--main img`) was showing the **whole
+  portrait** — head at the top plus the lower body/legs at the bottom — because
+  `portrait.jpg` is 4:5 (720x900) and the `.about-photo img` frame is also
+  `aspect-ratio: 4/5`, so `object-fit: cover` fit it exactly (no crop at all).
+  The hero frame is 3:4, so it cropped the sides; the About frame did not.
+- Fix: added a dedicated **upper-body crop `assets/photos/portrait-about.jpg`**
+  (328x410, 4:5) taken from `portrait.jpg` (source rect x196 y20 w328 h410 —
+  head/shoulders/upper torso, legs excluded) and pointed the About `<img>` at
+  it (width 328 height 410). The hero and the `priyanshu-rana.html` circle keep
+  the full `portrait.jpg`; only the About section was changed.
+- Note: the 1200x1600 source (`%TEMP%\opencode\portrait-full.jpg` /
+  the WhatsApp JPEG) is **not** a plain scale of `portrait.jpg` (mean abs diff
+  ~54 at scale 0.6), so crops must be derived from `portrait.jpg` itself, not
+  mapped to the original.
+- `portrait-about.jpg` is a **new filename** (no `?v=` stamp needed) so it is
+  cache-proof; bump the stamp only if the file is re-edited in place.
+
 ## Next actions
 
 **Off-page — this is what actually wins name searches (on-page alone will
