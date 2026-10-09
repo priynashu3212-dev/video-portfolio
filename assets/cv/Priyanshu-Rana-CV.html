@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Priyanshu Rana — CV</title>
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --text: #1c1613;
+    --muted: #6f6759;
+    --line: #ddd6c8;
+    --accent: #a4572f;
+    --bg: #fffdf8;
+  }
+  html, body { background: #ece8e0; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    color: var(--text);
+    font-size: 9.6pt;
+    line-height: 1.44;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto;
+    padding: 12mm 14mm;
+    background: var(--bg);
+  }
+  .serif { font-family: Georgia, "Times New Roman", serif; }
+
+  header { border-bottom: 2px solid var(--text); padding-bottom: 4mm; }
+  .name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25pt;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+  .role { color: var(--accent); font-size: 11pt; font-weight: 600; margin-top: 1.2mm; }
+  .contact { margin-top: 2.6mm; color: var(--muted); font-size: 8.8pt; }
+  .contact span { white-space: nowrap; }
+  .contact .sep { color: var(--line); margin: 0 2mm; }
+
+  .summary { margin-top: 3.5mm; font-size: 9.8pt; }
+
+  section { margin-top: 4.2mm; }
+  h2 {
+    font-size: 8.2pt;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1.2mm;
+    margin-bottom: 2.6mm;
+  }
+
+  .skills { display: flex; flex-wrap: wrap; gap: 1.5mm 1.5mm; }
+  .skill {
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.7mm 2.6mm;
+    font-size: 8.6pt;
+    color: var(--text);
+  }
+
+  .item { margin-bottom: 2.6mm; }
+  .item:last-child { margin-bottom: 0; }
+  .item-top { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .item-title { font-weight: 700; font-size: 9.8pt; }
+  .item-when { color: var(--muted); font-size: 8.4pt; white-space: nowrap; }
+  .item-sub { color: var(--accent); font-size: 8.6pt; font-weight: 600; margin-top: 0.2mm; }
+  .item-body { color: #3a332c; margin-top: 0.6mm; }
+  .item-body b { color: var(--text); }
+
+  .two { display: grid; grid-template-columns: 1.35fr 1fr; gap: 7mm; }
+  ul.plain { list-style: none; }
+  ul.plain li { position: relative; padding-left: 4.2mm; margin-bottom: 1.1mm; }
+  ul.plain li::before {
+    content: "";
+    position: absolute; left: 0; top: 1.9mm;
+    width: 1.5mm; height: 1.5mm;
+    background: var(--accent);
+    transform: rotate(45deg);
+  }
+  .foot {
+    margin-top: 4.5mm;
+    padding-top: 2.2mm;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 8pt;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="name">Priyanshu Rana</div>
+      <div class="role">Digital Marketer (AI) &amp; Web Developer — Student</div>
+      <div class="contact">
+        <span>Siwan, Kaithal, Haryana, India</span><span class="sep">•</span>
+        <span>bhanupartap1790@gmail.com</span><span class="sep">•</span>
+        <span>+91 87085 51762</span><span class="sep">•</span>
+        <span>video-portfolio-eta-two.vercel.app</span><span class="sep">•</span>
+        <span>instagram.com/bhanu.rana___</span>
+      </div>
+    </header>
+
+    <p class="summary">
+      First-year college student and self-taught digital marketer from Siwan, Kaithal,
+      Haryana. I use AI for research, content, ad copy and campaign planning, and I build
+      fast, responsive websites from the first wireframe to something you can click.
+      Looking for internships, freelance work or a role that works around college hours.
+    </p>
+
+    <section>
+      <h2>Core Skills</h2>
+      <div class="skills">
+        <span class="skill">AI for marketing</span>
+        <span class="skill">Prompt engineering</span>
+        <span class="skill">SEO</span>
+        <span class="skill">Meta &amp; Google Ads</span>
+        <span class="skill">Content creation</span>
+        <span class="skill">Canva</span>
+        <span class="skill">Web design</span>
+        <span class="skill">HTML, CSS &amp; JavaScript</span>
+        <span class="skill">WordPress</span>
+        <span class="skill">Analytics &amp; reporting</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-title">Fitplay Gym, Kaithal — Website</span>
+          <span class="item-when">2026 · Live</span>
+        </div>
+        <div class="item-sub">fitplay-gym.vercel.app</div>
+        <div class="item-body">
+          Full marketing site for a local gym: landing page, memberships, training programs
+          and about. Built with HTML, CSS and JavaScript. <b>Live and taking enquiries from
+          the Kaithal area.</b>
+        </div>
+      </div>
+      <div class="item">
+        <div class="item-top">
+          <span class="item-title">Ludo — Mobile Game</span>
+          <span class="item-when">2026 · Self-initiated</span>
+        </div>
+        <div class="item-body">
+          Self-initiated Ludo build to practise game logic, turn handling and state
+          management.
+        </div>
+      </div>
+    </section>
+
+    <div class="two">
+      <section>
+        <h2>Education</h2>
+        <div class="item">
+          <div class="item-top">
+            <span class="item-title">Bachelor's Degree</span>
+            <span class="item-when">Ongoing · First year</span>
+          </div>
+          <div class="item-sub">Kaithal, Haryana</div>
+        </div>
+        <div class="item">
+          <div class="item-top">
+            <span class="item-title">Senior Secondary (Class 12)</span>
+            <span class="item-when">CBSE</span>
+          </div>
+        </div>
+        <div class="item">
+          <div class="item-top">
+            <span class="item-title">Secondary (Class 10)</span>
+            <span class="item-when">CBSE</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>What I Do</h2>
+        <ul class="plain">
+          <li>AI-led marketing — research, ad copy and campaign planning</li>
+          <li>SEO and content built to rank</li>
+          <li>Meta &amp; Google Ads setup, testing and reporting</li>
+          <li>Responsive web design and front-end build</li>
+          <li>Analytics and reporting that points to the next move</li>
+        </ul>
+      </section>
+    </div>
+
+    <section>
+      <h2>Journey</h2>
+      <div class="item">
+        <div class="item-body">
+          Self-taught over four months: HTML, CSS and enough JavaScript to make a page do
+          something, then SEO fundamentals, keyword research and on-page work, then Meta and
+          Google Ads and AI-driven workflows — culminating in building and shipping the
+          Fitplay Gym site. Locally focused: same language, same market, faster feedback.
+        </div>
+      </div>
+    </section>
+
+    <div class="foot">
+      <span>Priyanshu Rana — Curriculum Vitae</span>
+      <span>Portfolio: video-portfolio-eta-two.vercel.app</span>
+    </div>
+  </div>
+</body>
+</html>

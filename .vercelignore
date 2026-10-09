@@ -1,0 +1,11 @@
+# Vercel detects "Node" purely because server.js sits at the repo root, and then
+# uses it as the serverless entrypoint. server.js calls http.createServer().listen()
+# and exports no handler, so every request 404s. This is a static site — excluding
+# the local preview server makes Vercel fall through to static file serving.
+server.js
+
+# Internal notes, not part of the published site.
+AGENTS.md
+
+# CV source template (the generated PDF at assets/Priyanshu-Rana-CV.pdf is what ships).
+assets/cv/

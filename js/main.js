@@ -43,16 +43,45 @@ document.querySelectorAll("[data-cfg-mail]").forEach((el) => {
   el.textContent = CONFIG.email;
   el.href = `mailto:${CONFIG.email}`;
 });
-document.title = `${CONFIG.name} — ${CONFIG.role.split("·")[0].trim()}`;
+document.querySelectorAll("[data-cfg-phone]").forEach((el) => {
+  el.textContent = CONFIG.phone;
+  el.href = `tel:${String(CONFIG.phone).replace(/[^+\d]/g, "")}`;
+});
 
-const metaDesc = `${CONFIG.name} — ${CONFIG.role} · ${CONFIG.city}`;
-document
-  .querySelector('meta[name="description"]')
-  ?.setAttribute("content", CONFIG.heroSub || metaDesc);
-document.querySelector('meta[property="og:title"]')?.setAttribute("content", document.title);
-document
-  .querySelector('meta[property="og:description"]')
-  ?.setAttribute("content", CONFIG.heroSub || metaDesc);
+/* Contact details block in the contact section — phone, email, WhatsApp,
+   location, all read from CONFIG so there is one source of truth. */
+const contactDetails = document.getElementById("contactDetails");
+if (contactDetails) {
+  const tel = String(CONFIG.phone || "").replace(/[^+\d]/g, "");
+  const rows = [
+    { label: "Phone", value: CONFIG.phone, href: tel ? `tel:${tel}` : "" },
+    { label: "Email", value: CONFIG.email, href: CONFIG.email ? `mailto:${CONFIG.email}` : "" },
+    {
+      label: "WhatsApp",
+      value: CONFIG.phone,
+      href: CONFIG.whatsapp ? `https://wa.me/${CONFIG.whatsapp}` : "",
+    },
+    { label: "Based in", value: CONFIG.city, href: "" },
+  ].filter((row) => row.value);
+
+  contactDetails.innerHTML = rows
+    .map(
+      (row) => `<li class="contact-detail reveal">
+        <span class="mono contact-detail-label">${row.label}</span>
+        ${
+          row.href
+            ? `<a href="${row.href}"${row.href.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${row.value}</a>`
+            : `<span>${row.value}</span>`
+        }
+      </li>`
+    )
+    .join("");
+}
+/* The <head> values (title, meta description, og/twitter tags) are the single
+   source of truth and live in index.html — search engines read the raw HTML,
+   and rewriting them here at runtime meant crawlers that execute JS saw a
+   different title than the one in the source. Do not set document.title or
+   the meta tags from this file. */
 
 /* ---------- render everything else from CONFIG ---------- */
 
@@ -90,11 +119,14 @@ if (skillsList && CONFIG.skills) {
 
 const statRow = document.getElementById("statRow");
 if (statRow && CONFIG.stats) {
-  statRow.innerHTML = CONFIG.stats
+  /* The static text is the final value, not 0: crawlers that render JS (and
+   anyone who hasn't scrolled to the band yet) must see the real number.
+   buildOdometer() clears it and animates from 0 when it scrolls in. */
+statRow.innerHTML = CONFIG.stats
     .map(
       (s, i) => `
       <li class="stat reveal" data-delay="${i % 4}">
-        <span class="stat-value"><span data-count="${s.value}">0</span>${
+        <span class="stat-value"><span data-count="${s.value}">${s.value}</span>${
           s.suffix ? `<em>${s.suffix}</em>` : ""
         }</span>
         <span class="stat-label mono">${s.label}</span>
@@ -163,6 +195,69 @@ if (quotes && CONFIG.testimonials?.length) {
 } else {
   testimonialSection?.remove();
 }
+
+const nowGrid = document.getElementById("nowGrid");
+if (nowGrid && CONFIG.now?.length) {
+  nowGrid.innerHTML = CONFIG.now
+    .map(
+      (n, i) => `
+      <article class="now-card reveal" data-delay="${i % 4}">
+        <span class="now-n mono">${pad(i + 1)}</span>
+        <h3 class="now-title">${n.title}</h3>
+        <p class="now-body">${n.body}</p>
+      </article>`
+    )
+    .join("");
+} else {
+  nowGrid?.closest("section")?.remove();
+}
+
+const journeyList = document.getElementById("journeyList");
+if (journeyList && CONFIG.journey?.length) {
+  journeyList.innerHTML = CONFIG.journey
+    .map(
+      (j, i) => `
+      <li class="journey-item reveal" data-delay="${i % 4}">
+        <span class="journey-when mono">${j.when}</span>
+        <div class="journey-copy">
+          <h3 class="journey-title">${j.title}</h3>
+          <p class="journey-text">${j.body}</p>
+        </div>
+      </li>`
+    )
+    .join("");
+} else {
+  journeyList?.closest("section")?.remove();
+}
+
+const faqList = document.getElementById("faqList");
+if (faqList && CONFIG.faq?.length) {
+  faqList.innerHTML = CONFIG.faq
+    .map(
+      (f, i) => `
+      <details class="faq-item reveal" data-delay="${i % 4}"${
+        i === 0 ? " open" : ""
+      }>
+        <summary class="faq-q">
+          <span class="num">${pad(i + 1)}</span>
+          <span>${f.q}</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </summary>
+        <p class="faq-a">${f.a}</p>
+      </details>`
+    )
+    .join("");
+} else {
+  faqList?.closest("section")?.remove();
+}
+
+/* Renumber the section labels last, after optional sections have been
+   removed, so the 01/02/03 sequence never shows a gap. */
+let labelNo = 0;
+document.querySelectorAll("main .label .num").forEach((el) => {
+  labelNo += 1;
+  el.textContent = pad(labelNo);
+});
 
 /* Empty photo slots fall back to the placeholder instead of a broken icon.
    Drop real files into assets/photos/ named portrait.jpg, photo-2.jpg, photo-3.jpg
@@ -247,7 +342,10 @@ function buildCard(p, i) {
   return card;
 }
 
-PROJECTS.forEach((p, i) => workList.appendChild(buildCard(p, i)));
+/* replaceChildren, not appendChild: index.html carries the same cards baked
+   in for crawlers and no-JS visitors, so the list must be cleared first or
+   every card would appear twice. */
+workList.replaceChildren(...PROJECTS.map((p, i) => buildCard(p, i)));
 
 /* Hide any filter chip that would show an empty grid. Better than a button
    that filters to nothing. */

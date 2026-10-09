@@ -103,16 +103,180 @@ disk.
 - ffmpeg lives at
   `C:\Users\Admin\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-9.0.1-full_build\bin\ffmpeg.exe`
 - Stats: 4 mo, 10+ Tools in the stack, 100% Self-taught
-- Placeholder email you@example.com remains until real address provided
+- Contact details live: CONFIG.email `bhanupartap1790@gmail.com`, CONFIG.phone
+  `+91 87085 51762`, CONFIG.whatsapp `918708551762`. Contact section renders a
+  Phone/Email/WhatsApp/Location grid from CONFIG (`#contactDetails` in main.js);
+  footer shows email + phone.
+- Contact section photo `assets/photos/kaithal-aerial.jpg` is now **the user's
+  own drone shot**, converted from `C:\Users\Admin\Downloads\drone.webp`
+  (webp -> jpg, ffmpeg `-q:v 4`). Source is only **480x270 / 22 KB**, so it
+  renders a bit soft at contact-column width — ask for a higher-res export
+  when possible. CSS uses `height:auto` (no fixed aspect-ratio), so any
+  replacement keeps its own proportions. The old CC BY stand-in (Mohali
+  aerial, credit line) is gone.
+- Wikimedia rate-limits (429) bulk downloads — use
+  `Special:FilePath/<name>?width=1600` with a real User-Agent and sleeps.
+- js/config.js `now`, `journey`, `faq` arrays are now wired: sections
+  "Right now" (after About), "Journey" (after Process), "FAQ" (before Contact)
+  render from them in main.js. Section labels are renumbered at runtime after
+  the optional testimonials/now/journey/faq sections settle, so no gaps.
 - Git repository initialized; work is staged but **not committed**
+
+## SEO pass (Oct 7, 2026)
+
+Target keywords: **"Priyanshu Rana"** and **"Priyanshu Siwan"** (name + village,
+Kaithal). Goal is #1 for the name search.
+
+- `robots.txt` created (root) and already live:
+  `User-agent: * / Allow: / / Sitemap: https://video-portfolio-eta-two.vercel.app/sitemap.xml`
+- `index.html` head reworked:
+  - Title: `Priyanshu Rana — Digital Marketing with AI & Web Developer in Siwan, Kaithal`
+  - Meta description leads with the name + "Siwan, Kaithal, Haryana"
+  - **Canonical + og:url added** → `https://video-portfolio-eta-two.vercel.app/`
+    (replaced the "add a domain later" placeholder comment)
+  - og:image / twitter:image changed from relative to **absolute URLs**
+    (relative ones don't render in link previews)
+- Person JSON-LD: added `alternateName: ["Priyanshu Siwan", "Priyanshurana"]`,
+  `url`, `homeLocation` "Siwan, Kaithal, Haryana", `addressLocality`
+  "Siwan, Kaithal"
+- Added a second JSON-LD block: **FAQPage** mirroring the 6 CONFIG.faq entries
+  (keep in sync with js/config.js if FAQ text changes)
+- H2 "About" → "About Priyanshu Rana"
+- Portrait `alt` now keyword-bearing; hero sub and FAQ answer say
+  "Siwan, Kaithal" instead of just Kaithal
+- Both JSON-LD blocks verified valid (parse-checked); page 200 at :5173
+
+**On-page alone won't hit #1** — remaining off-page steps are in Next actions.
+
+## SEO pass 2 — keyword targeting + raw-HTML bake (Oct 8, 2026)
+
+Target queries: **"priyanshu rana"**, **"priyanshu siwan"**, **"priyanshu kaithal"**,
+**"priyanshu digital marketer student"**.
+
+### On-page changes
+
+- Title → `Priyanshu Rana — Digital Marketer & Web Developer Student, Siwan Kaithal`
+  (72 ch); meta/og/twitter descriptions rewritten to contain the exact phrase
+  "digital marketer student" + "Siwan, Kaithal, Haryana" (158 ch).
+- **Removed the `document.title`/meta/og override block at the top of
+  main.js.** It rewrote the head from CONFIG at runtime, so JS-rendering
+  crawlers saw a different title than the source. `index.html` head is now the
+  single source of truth — never set document.title or the meta tags from JS.
+- H1 contains "Priyanshu Rana — " via a `.sr-only` span (new utility class in
+  style.css). The H1 is rebuilt from `CONFIG.heroLines` at load, so the sr-only
+  span lives in **both** index.html and config.js — change them together.
+- `heroSub` and `CONFIG.aboutBody[0]` rewritten with name/location/role
+  keywords. About paragraphs are overwritten from config at load — static HTML
+  must mirror the config text.
+- 2 new name-intent FAQs: "Who is Priyanshu Rana?" and "Where is Priyanshu
+  Rana from?" — kept in **three** places: `CONFIG.faq`, the static FAQPage
+  JSON-LD block, and the baked `#faqList` markup.
+- Person JSON-LD `sameAs` → Instagram `https://www.instagram.com/bhanu.rana___/`;
+  `CONFIG.socials` Instagram is real (LinkedIn/YouTube/X still "#").
+- Stats odometer template now writes the **final value**, not `0` — the old
+  `>0<` meant rendering crawlers saw "0mo In digital marketing".
+
+### Raw-HTML bake (the big one)
+
+- Every config-driven section (stats, skills, services, process, now, journey,
+  FAQ, contact details, footer socials, both project cards) is baked into
+  index.html with the exact markup main.js produces. main.js still overwrites
+  them at load with identical content — the bake exists for crawlers,
+  scrapers and no-JS visitors.
+- **Sync rule: when an array in config.js/projects.js changes, update the
+  matching baked markup in index.html too.** A comment above the stats section
+  says so in the page itself.
+- `#workList` builds via `replaceChildren()` now, not `appendChild()` —
+  otherwise the baked cards doubled up.
+- Testimonials section removed from static HTML (JS removes it at runtime when
+  the array is empty); baked section labels are the post-renumber 01..09
+  (FAQ 08, Contact 09); Campaign/Content filter chips dropped (no such
+  projects); lightbox counter reads "01 / 02".
+- `?v=` stamps bumped: style.css **v6**, config.js **v4**, main.js **v4**.
+
+### Verified (local AND live)
+
+- `seo-verify.mjs`: 10/10 assertions + full JS-vs-no-JS parity (counts and
+  normalized text) — both localhost and the live URL.
+- `seo-geom.mjs`: every image loads, no zero-height sections, card tilt
+  (-3.4°/+3.1°) and stagger intact, no horizontal overflow — local and live.
+- Live raw source: 27× "Priyanshu Rana", 3× "digital marketer student", 8
+  baked FAQ items, both JSON-LD blocks parse, google verification file 200,
+  sitemap lastmod 2026-10-08, all `?v=` stamps present.
+- `check-aurora-fallback.mjs` still passes (SD ~13, frame-to-frame diff 6.6 —
+  genuinely animating); hero2 contrast matches the recorded table
+  (bare-flat 244.0/0.0, bare-poster 215.8/11.7).
+- Deployed with `vercel --prod`; alias unchanged.
+
+### Known quirks found on the way
+
+- **server.js ignores HTTP Range** (answers 200, never 206), so video seeking
+  fails on localhost — `currentTime` snaps to 0 and hero measurement
+  screenshots show a frozen frame. Playback works; the live site seeks fine
+  (verified). Never diagnose video problems from localhost seeking.
+- Odometer rails inject digits 0-9 into textContent once counters run —
+  pre-existing, only after scroll; crawlers that don't scroll see the final
+  value.
+
+## CV + local server MIME (Oct 9, 2026)
+
+- Generated `assets/Priyanshu-Rana-CV.pdf` (single A4 page, ~72 KB) so the
+  "Download CV" button finally activates (it hides itself while the file is
+  missing — `main.js` HEAD-checks `[data-cv]`).
+- Source template kept at `assets/cv/Priyanshu-Rana-CV.html`; regenerate with
+  Chrome headless:
+  `& "C:\Program Files\Google\Chrome\Application\chrome.exe" --headless=new --disable-gpu --no-pdf-header-footer --virtual-time-budget=3000 --print-to-pdf="assets\Priyanshu-Rana-CV.pdf" "file:///<abs>/assets/cv/Priyanshu-Rana-CV.html"`
+  (Chrome logs "N bytes written" to stderr; PowerShell shows it as red text —
+  it is not an error.) Verify the page count by grepping the PDF for `/Count`.
+- `assets/cv/` is in `.vercelignore`, so only the PDF ships, not the template.
+- Content is assembled **only from facts already on the site** (skills,
+  services, both projects, education = 10th/12th CBSE + first-year ongoing,
+  four-month self-taught journey). **Review before sending** — add the college
+  name, course and years if wanted; the template is the place to edit.
+- `server.js` MIME map was missing `.pdf`, `.xml`, `.txt`; robots.txt and
+  sitemap.xml were being served as `application/octet-stream` locally. Added —
+  restart the server to pick it up (this is a `no-store` preview server, but
+  the MIME map is read once at boot).
+
+### Remaining items that cannot be finished from this machine
+
+These need the owner's accounts, files or URLs — no code change will complete
+them: Google Search Console + Bing verification, Instagram/LinkedIn/YouTube/X
+profile URLs (replace the `#` in `CONFIG.socials` *and* the Person JSON-LD
+`sameAs`), the Ludo Play Store/demo URL, and a higher-resolution drone photo
+(the only source, `Downloads\drone.webp`, is still 480×270).
 
 ## Next actions
 
-1. Replace CONFIG.email in js/config.js with real address when available.
-2. Add real social links in CONFIG.socials (or leave # until ready).
-3. Set href in data/projects.js for Ludo when published.
-4. Drop assets/Priyanshu-Rana-CV.pdf when available (auto-detect).
-5. Update domain in robots.txt, sitemap.xml, canonical/og:url when known.
+**Off-page — this is what actually wins name searches (on-page alone will
+not get #1):**
+
+1. **Google Search Console**: add property
+   `https://video-portfolio-eta-two.vercel.app` (verification file
+   `google5b3de35788edf0b8.html` is live, returns 200), submit
+   `sitemap.xml`, then URL Inspection → Request indexing on the homepage.
+   After ~2 weeks, check Performance → queries for the four target searches.
+2. **Bing Webmaster Tools** — can import straight from GSC; covers
+   Bing/Copilot.
+3. **Instagram** (`bhanu.rana___`): display name "Priyanshu Rana", bio with
+   "digital marketer · Siwan, Kaithal", site link in bio. The JSON-LD
+   `sameAs` already points at it — but the profile must link *back*.
+4. **Backlinks he controls**: "Website by Priyanshu Rana" credit link to the
+   portfolio on `fitplay-gym.vercel.app` (and any future school/client sites).
+   Easiest real backlink available.
+5. **Next profiles**, then add their URLs to `CONFIG.socials` *and* the
+   Person JSON-LD `sameAs` array: LinkedIn, YouTube (a video titled
+   "Priyanshu Rana" ranks fast for name searches), GitHub,
+   Linktree/About.me.
+6. Same name + same photo on every profile — entity building, the path to a
+   Knowledge Panel. No bought links or comment spam: new sites get penalized.
+
+**Still open from before:**
+
+1. Higher-resolution drone photo (current 480x270).
+2. Ludo project href when published.
+3. Custom domain later means updating: robots.txt, sitemap.xml, canonical,
+   og:url, Person JSON-LD (5 places).
 
 ## Quick checks
 
@@ -120,6 +284,9 @@ disk.
 - node server.js from repo root, http://localhost:5173/
 - Hero/backdrop contrast + motion: `node %TEMP%\opencode\measure-hero2.mjs`
 - Video fallback: `node %TEMP%\opencode\check-aurora-fallback.mjs`
+- **SEO/bake assertions + JS/no-JS parity: `node %TEMP%\opencode\seo-verify.mjs [url]`**
+- **Layout/images sanity: `node %TEMP%\opencode\seo-geom.mjs [url]`**
+- **Section screenshots (need human eyes): `node %TEMP%\opencode\seo-shots.mjs`**
 - Re-encoding the hero: edit `loopframe.html`, `node render-loop.mjs`, then the
   ffmpeg calls above. Grade single frames first with `node probe-frames.mjs 0.0 0.5`
   (a full render is ~4 minutes).
