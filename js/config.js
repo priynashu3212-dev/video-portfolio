@@ -174,6 +174,10 @@ const CONFIG = {
       q: "Where is Priyanshu Rana from?",
       a: "Priyanshu Rana is from Siwan, a village in the Kaithal district of Haryana, India. He works with local businesses across Kaithal and Haryana, and with clients anywhere online.",
     },
+    {
+      q: "Is Priyanshu Rana also known as Priyanshu Siwan or Priyanshu Kaithal?",
+      a: "Yes. Priyanshu Rana is often searched as \"Priyanshu Siwan\" or \"Priyanshu Kaithal\" because he is from Siwan, a village in the Kaithal district of Haryana, India. All three names mean the same person — a self-taught digital marketer and web developer.",
+    },
   ],
 
   /* --- social links ----------------------------------------------------- */

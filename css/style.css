@@ -562,9 +562,9 @@ h2 {
    is exactly one photo here — add more to assets/photos/ when you have them. */
 .photo-grid { display: block; max-width: 420px; }
 .about-photo--main { grid-row: auto; }
-/* Same portrait as the hero, so crop it differently here — otherwise the two
-   read as a duplicated image rather than two views of one person. */
-.about-photo--main img { object-position: 50% 16%; }
+/* The portrait is already cropped face-first (upper body), so just keep the
+   default centre framing here — no extra offset needed. */
+.about-photo--main img { object-position: 50% 50%; }
 .about-photo img {
   width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
   border: 1px solid var(--line); filter: saturate(0.9) contrast(1.02);
