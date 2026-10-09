@@ -890,6 +890,8 @@ h2 {
 }
 .to-top { color: var(--muted); transition: color 0.25s; }
 .to-top:hover { color: var(--accent); }
+.footer-about { color: var(--muted); transition: color 0.25s; }
+.footer-about:hover { color: var(--accent-2); }
 
 /* ---------- lightbox ---------- */
 .lightbox {
