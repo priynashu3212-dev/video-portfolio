@@ -173,7 +173,7 @@ const PROJECTS = [
     category: "Website",
     client: "Self-initiated",
     year: "2026",
-    poster: "assets/hero-poster.jpg",
+    poster: "assets/hero-poster.jpg?v=3",
     summary: "The site you are on — video hero, blue editorial theme and SEO architecture built by hand.",
     stack: "HTML, CSS, JS, WebGL · Vercel",
     caseStudy: {
@@ -237,7 +237,7 @@ const PROJECTS = [
         { code: "mobile", title: "Mobile single-column layout" },
       ],
       screens: [
-        { code: "screen-hero", title: "Final hero — procedural aurora + portrait", img: "assets/hero-poster.jpg" },
+        { code: "screen-hero", title: "Final hero — procedural aurora + portrait", img: "assets/hero-poster.jpg?v=3" },
         { code: "screen-work", title: "Final work — the 3D slide deck" },
         { code: "screen-contact", title: "Final contact — details grid + form" },
       ],

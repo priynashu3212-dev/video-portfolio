@@ -457,5 +457,32 @@ the old warm editorial theme.
 - Temp check scripts updated: `seo-verify.mjs` asserts workCards === 3 and
   `seo-geom.mjs` expects 3 cards (both in %TEMP%\opencode).
 
-**Still open:** hero video blue re-encode (above); the pending portrait photo
-swap for `assets/photos/portrait.jpg`; everything on the owner-account list.
+**Still open:** the pending portrait photo swap for
+`assets/photos/portrait.jpg`; everything on the owner-account list.
+
+## Hero video re-encoded in the blue palette (Oct 10, 2026)
+
+- **Done — the hero-loop video/poster now match the blue theme.** The old
+  warm cream-taupe grade (Oct 1) was superseded by the blue palette when the
+  theme changed, so the encoded video no longer matched the live WebGL
+  fallback. Re-rendered all 96 frames from `%TEMP%\opencode\loopframe.html`
+  (edited its uniforms to the same tokens aurora.js reads) and re-encoded.
+- New palette in `loopframe.html`:
+  `uBase #f4f7ff, uMid #cddbff, uDeep #7aa2ff, uWarm #a5c4ff, uHot #0ea5e9, uDark #3b5bd6`
+  — identical to `--bg/--mid/--deep/--warm/--accent-2/--dark` in style.css.
+- Encoded from `frames/f%03d.png` (96 × 1920×1080, 24fps = 4.000s, yuv420p):
+  - `hero-loop.webm` — VP9 `-crf 26 -b:v 0 -row-mt 1 -cpu-used 2`, 254,987 B
+  - `hero-loop.mp4` — H.264 `-crf 22 +faststart`, 871,220 B
+  - `hero-poster.jpg` — frame 0, `-q:v 4`, 38,510 B
+- **Measurements:** webm SSIM Y 0.9803 / mp4 0.9784 (matches original spec);
+  loop seam uniform (f095→f000 mean-abs-diff 1.4489 vs adjacent-step 1.4424);
+  poster mean rgb (175.7, 219.8, 246.3) blue-dominant, luma mean 212.3 SD 14.8;
+  hero2 bare-poster luma 224.5/11.7 (mean/SD) vs old 215.8/11.7 — brighter but
+  same variance, contrast held.
+- **`?v=` stamps bumped (contents changed):** hero-poster.jpg and both
+  hero-loop sources **?v=3** (was 2) in index.html; `data/projects.js` poster
+  + screen-hero img now carry `?v=3`; `projects.js` stamp **?v=4**.
+- Verified: `node --check` clean; served bytes match disk; `seo-verify.mjs`
+  10/10 + full JS/no-JS parity; `seo-geom.mjs` GEOM OK; `test-deck.mjs` all
+  PASS. Judge playback from the live site (localhost seeking still broken —
+  server.js ignores Range).
